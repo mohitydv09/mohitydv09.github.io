@@ -9,11 +9,13 @@ export const portfolio = {
     website: 'https://mohitydv09.github.io',
     github: 'https://github.com/mohitydv09',
     linkedin: 'https://linkedin.com/in/mohitydv09',
+    cv: '/Mohit_Yadav_Resume.pdf',
   },
   experience: [
     {
       title: 'Founding Robotics Software Engineer',
       company: 'Tetheria.AI',
+      logo: 'https://images.squarespace-cdn.com/content/v1/686dbccd5ad0580c74995286/c32baac8-9fa8-4bac-ab47-a4974068d020/Logo.png?format=1500w',
       period: 'Sept 2025 - Present',
       highlights: [
         'Architected software for 16-DOF and 20-DOF tendon-driven hands across firmware, SDK, ROS 2, coordinate frames, data structures, and control interfaces.',
@@ -24,6 +26,7 @@ export const portfolio = {
     {
       title: 'Robotics Software Engineering Intern',
       company: 'Tetheria.AI',
+      logo: 'https://images.squarespace-cdn.com/content/v1/686dbccd5ad0580c74995286/c32baac8-9fa8-4bac-ab47-a4974068d020/Logo.png?format=1500w',
       period: 'May 2025 - Aug 2025',
       highlights: [
         'Developed URDF assets from SolidWorks models and configured ROS 2 visualization with RViz2, TF alignment, launch files, and joint state publishing.',
@@ -34,6 +37,7 @@ export const portfolio = {
     {
       title: 'Research Assistant',
       company: 'Robotics: Perception and Manipulation Lab, University of Minnesota',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/University_of_Minnesota_Logo.svg/250px-University_of_Minnesota_Logo.svg.png',
       period: 'Jan 2024 - May 2025',
       highlights: [
         'Implemented diffusion-policy based bimanual manipulation on UR5e hardware, reaching 74.6% success on a bottle uncorking task.',
@@ -43,6 +47,7 @@ export const portfolio = {
     {
       title: 'Teaching Assistant',
       company: 'University of Minnesota',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/University_of_Minnesota_Logo.svg/250px-University_of_Minnesota_Logo.svg.png',
       period: 'Jan 2024 - May 2025',
       highlights: [
         'Mentored 280+ students across robotics, dynamics, and applied data analytics, including Intelligent Robotic Systems.',
@@ -51,6 +56,7 @@ export const portfolio = {
     {
       title: 'Scientific Officer',
       company: 'NPCIL, India',
+      logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/NPCIL_Logo.svg/250px-NPCIL_Logo.svg.png',
       period: 'Jan 2021 - Aug 2023',
       highlights: [
         'Contributed to nuclear fuel handling machinery design through structural calculations, load calculations, and engineering documentation.',
@@ -88,11 +94,13 @@ export const portfolio = {
       school: 'University of Minnesota, Twin Cities',
       degree: 'MS in Robotics, GPA: 4.0/4.0',
       year: '2025',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/University_of_Minnesota_Logo.svg/250px-University_of_Minnesota_Logo.svg.png',
     },
     {
       school: 'Indian Institute of Technology (IIT) BHU Varanasi',
       degree: 'B.Tech. in Mechanical Engineering, GPA: 7.2/10.0',
       year: '2018',
+      logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/36/IIT-BHU_Logo.svg/250px-IIT-BHU_Logo.svg.png',
     },
   ],
   skills: [

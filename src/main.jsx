@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   siCplusplus,
@@ -16,6 +16,7 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Cpu,
+  FileText,
   Github,
   GraduationCap,
   Home,
@@ -30,7 +31,7 @@ import {
 } from 'lucide-react';
 import { portfolio } from './portfolioData.js';
 import './styles.css';
-import heroPhoto from '../main.jpg';
+import heroPhoto from './assets/main.jpg';
 
 const iconMap = {
   programming: Cpu,
@@ -72,26 +73,31 @@ function App() {
 
 function ScrollRider() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const hideTimer = useRef(null);
 
   useEffect(() => {
     const updateScrollProgress = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const nextProgress = scrollable > 0 ? window.scrollY / scrollable : 0;
       setScrollProgress(Math.min(1, Math.max(0, nextProgress)));
+      setVisible(true);
+      clearTimeout(hideTimer.current);
+      hideTimer.current = setTimeout(() => setVisible(false), 1000);
     };
 
-    updateScrollProgress();
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress);
 
     return () => {
       window.removeEventListener('scroll', updateScrollProgress);
       window.removeEventListener('resize', updateScrollProgress);
+      clearTimeout(hideTimer.current);
     };
   }, []);
 
   return (
-    <div className="scroll-rider" aria-hidden="true">
+    <div className="scroll-rider" aria-hidden="true" style={{ opacity: visible ? 1 : 0, transition: visible ? 'opacity 0.2s ease' : 'opacity 0.5s ease' }}>
       <div className="scroll-rider-track" />
       <img
         alt=""
@@ -106,15 +112,16 @@ function ScrollRider() {
 function Header() {
   const sectionOrder = [
     { id: 'top', label: 'Home' },
-    { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
+    { id: 'education', label: 'Education' },
     { id: 'contact', label: 'Contact' },
   ];
   const navItems = [
+    { id: 'top', label: 'About Me' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
+    { id: 'education', label: 'Education' },
     { id: 'contact', label: 'Contact' },
   ];
   const [activeSection, setActiveSection] = useState('top');
@@ -188,6 +195,10 @@ function Hero() {
             <Linkedin size={18} aria-hidden="true" />
             LinkedIn
           </a>
+          <a className="button" href={portfolio.contact.cv} target="_blank" rel="noreferrer">
+            <FileText size={18} aria-hidden="true" />
+            CV
+          </a>
         </div>
         <div className="location-note">
           <MapPin size={16} aria-hidden="true" />
@@ -240,6 +251,7 @@ function Experience() {
               <BriefcaseBusiness size={18} aria-hidden="true" />
             </div>
             <div className="timeline-card">
+              {item.logo && <img src={item.logo} alt={item.company} className="experience-logo" />}
               <h3>{item.title}</h3>
               <p className="company">{item.company}</p>
               <ul>
@@ -260,22 +272,34 @@ function Projects() {
     <section className="section muted section-animate" id="projects">
       <SectionHeading eyebrow="Projects" />
       <div className="project-grid">
-        {portfolio.projects.map((project) => (
-          <article className="project-card" key={project.name}>
-            <div>
-              <h3>{project.name}</h3>
-              <p>{project.description}</p>
-            </div>
-            <div className="project-links">
-              {project.links.map((link) => (
-                <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>
-                  {link.label}
-                  <ArrowUpRight size={15} aria-hidden="true" />
+        {portfolio.projects.map((project) => {
+          const ytLink = project.links.find((l) => l.href.includes('youtu'));
+          const ytId = ytLink?.href.match(/(?:youtu\.be\/|v=)([\w-]{11})/)?.[1];
+          return (
+            <article className="project-card" key={project.name}>
+              {ytId && (
+                <a href={ytLink.href} target="_blank" rel="noreferrer" className="project-thumbnail">
+                  <img
+                    src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
+                    alt={`${project.name} video thumbnail`}
+                  />
                 </a>
-              ))}
-            </div>
-          </article>
-        ))}
+              )}
+              <div>
+                <h3>{project.name}</h3>
+                <p>{project.description}</p>
+              </div>
+              <div className="project-links">
+                {project.links.map((link) => (
+                  <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>
+                    {link.label}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -308,7 +332,10 @@ function Education() {
       <div className="education-list">
         {portfolio.education.map((item) => (
           <article className="education-item" key={item.school}>
-            <GraduationCap size={22} aria-hidden="true" />
+            {item.logo
+              ? <img src={item.logo} alt={item.school} className="education-logo" />
+              : <GraduationCap size={22} aria-hidden="true" />
+            }
             <div>
               <h3>{item.school}</h3>
               <p>{item.degree}</p>
@@ -330,7 +357,7 @@ function Hobbies() {
 
   return (
     <section className="section hobbies-section section-animate" id="hobbies">
-      <SectionHeading eyebrow="Hobbies" />
+      <SectionHeading eyebrow="Life Outside Work" />
       <div className="hobbies-grid">
         {portfolio.hobbies.map((hobby) => {
           const Icon = hobbyIcons[hobby.id] || Wrench;
@@ -392,7 +419,8 @@ function Footer() {
   return (
     <footer className="footer">
       <p>© {new Date().getFullYear()} {portfolio.name}</p>
-      <a href={`mailto:${portfolio.contact.email}`}>{portfolio.contact.email}</a>
+
+
     </footer>
   );
 }

@@ -206,8 +206,7 @@ nav a.active {
   grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
   gap: clamp(2rem, 6vw, 5rem);
   align-items: center;
-  min-height: calc(100vh - 68px);
-  padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(2rem, 5vw, 4rem);
+  padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(0.5rem, 1vw, 1rem);
 }
 
 .eyebrow,
@@ -341,7 +340,7 @@ h1 {
 .skills-dock-section {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
-  padding: clamp(1.2rem, 3vw, 2rem) 0 clamp(1.2rem, 3vw, 2.2rem);
+  padding: clamp(0.5rem, 1vw, 1rem) 0 clamp(1.2rem, 3vw, 2.2rem);
   scroll-margin-top: 120px;
 }
 
@@ -349,7 +348,7 @@ h1 {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: clamp(0.35rem, 1vw, 0.75rem);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
   overflow: visible;
   min-height: 130px;
   padding: 2.35rem 0.4rem 0.75rem;
@@ -524,6 +523,25 @@ li + li {
   flex-direction: column;
   justify-content: space-between;
   padding: clamp(1.15rem, 2.6vw, 1.6rem);
+  overflow: hidden;
+}
+
+.project-thumbnail {
+  display: block;
+  margin: calc(-1 * clamp(1.15rem, 2.6vw, 1.6rem));
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.project-thumbnail img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.project-thumbnail:hover img {
+  opacity: 0.85;
 }
 
 .project-links {
@@ -564,6 +582,21 @@ li + li {
   flex: 0 0 auto;
   color: var(--blue);
   margin-top: 0.15rem;
+}
+
+.education-logo {
+  flex: 0 0 auto;
+  width: 73px;
+  height: 73px;
+  object-fit: contain;
+}
+
+.experience-logo {
+  float: right;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin: 0 0 0.5rem 1rem;
 }
 
 .education-item span {
@@ -657,9 +690,9 @@ li + li {
 
 .footer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 0.4rem;
   border-top: 1px solid rgba(74, 163, 223, 0.18);
   color: var(--muted-ink);
   padding: 2rem 0 2.5rem;
@@ -672,6 +705,14 @@ li + li {
 .footer a {
   color: var(--accent-strong);
   font-weight: 760;
+}
+
+.footer-disclaimer {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 0.5rem;
 }
 
 .section-animate {
